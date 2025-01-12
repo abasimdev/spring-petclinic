@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage("Checkout"){
             steps{
-                git 'https://github.com/abasimdev/game-of-life.git'
+                git 'https://github.com/abasimdev/spring-petclinic.git'
             }
         }
     }
