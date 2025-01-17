@@ -1,7 +1,7 @@
 pipeline{
     agent any
           parameters {
-                    booleanParam defaultValue: true, description: 'Do you want to clean older packages?', name: mvn_clean
+                    booleanParam defaultValue: true, description: 'Do you want to clean older packages?', name: 'mvn_clean'
                 }
     stages{
                   
