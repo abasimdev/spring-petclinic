@@ -16,9 +16,12 @@ pipeline{
                 script{
                 if (mvn_clean == true){
                 sh 'mvn clean package'
+                echo "Performed Full build"
                 }
                 else{
                     sh 'mvn package'
+
+echo "Performed Basic build"
                 }
                 }
             }
