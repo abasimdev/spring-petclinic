@@ -14,7 +14,7 @@ pipeline{
             steps{
 
                 script{
-                if (mvn_clean == true){
+                if (${mvn_clean} == true){
                 sh 'mvn clean package'
                 echo "Performed Full build"
                 }
