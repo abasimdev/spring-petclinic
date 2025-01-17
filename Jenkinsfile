@@ -1,9 +1,10 @@
 pipeline{
     agent any
-    stages{
-                        parameters {
+          parameters {
                     booleanParam defaultValue: true, description: 'Do you want to clean older packages?', name: 'mvn_clean'
                 }
+    stages{
+                  
         stage("Checkout"){
             steps{
                 git branch: 'ab/pipeline', url: 'https://github.com/abasimdev/spring-petclinic.git'
