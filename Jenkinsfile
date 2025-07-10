@@ -2,8 +2,8 @@
 // Declarative pipeline for multibranch for DEV Branch
 
 pipeline {
-   // agent { label 'Master' }
-   agent any
+    // agent { label 'Master' }
+    agent any
 
     tools { // To define tools's specific version if multiple versions are installed and/or to install tools and set environment path on JK machine/Nodes automatically if not already done (Defining tools{} make pipeline portable)
         maven 'Maven 3.8.7' // 'Maven 3.8.7' label is defined in tools setting for Maven installation
@@ -39,8 +39,12 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv("${SONARQUBE}") {
-                    sh 'mvn sonar:sonar'
+                //catchError cotinues the pipleine execution despite of this stage passes or fails
+                catchError(buildResult: 'SUCCESS', message: 'The SonarQube stage is :', stageResult: 'FAILURE') {
+                    withSonarQubeEnv("${SONARQUBE}") {
+                        sh 'Running SonarQube stage that might fail because of the missing server details'
+                        sh 'mvn sonar:sonar'
+                    }
                 }
             }
         }
