@@ -1,25 +1,27 @@
 ---
 # Created By AB
 
-name: "Build SPC Project with Maven"
+name: Test and Build SPC Project
 
 on:
   workflow_dispatch:
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: "Code Checkout"
-        uses: actions/checkout@v4
-      
-      - name: "Create Environment"
+      - name: create environment
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: "Build with Maven"
+      - name: Uit Tests
+        run: mvn test
+
+      - name: Create Package with Maven
         run: mvn clean package
+
