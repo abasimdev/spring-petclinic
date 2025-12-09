@@ -16,7 +16,7 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
 
-      - name: Build Environment"
+      - name: Build Environment
         uses: actions/setup-java@v4
         with:
           java-version: '17'
