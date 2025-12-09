@@ -1,14 +1,14 @@
 ---
 # Created By AB
 
-name: Test and Build SPC Project
+name: Test and Build SPC Project (CI)
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Run job Manually
 
 
 jobs:
-  build:
+  build: # First Job name (CI)
     runs-on: ubuntu-latest
 
     steps:
