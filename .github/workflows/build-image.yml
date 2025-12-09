@@ -1,0 +1,30 @@
+---
+# Created by AB
+# Info: This is for SPC Java based project. Steps -->> Test -> Build -> create Docker image -> push to ECR
+
+name: Build SPC project and push to ECR
+
+on:
+  push:
+    branches: [ ab-prac ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Environment"
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Unit Test
+        run: mvn test
+
+      - name: Build
+        run: mvn clean package -Dmaven.test.skip=true
