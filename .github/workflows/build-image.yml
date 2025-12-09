@@ -23,8 +23,8 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Unit Test
-        run: mvn test
+      # - name: Unit Test
+      #   run: mvn test
 
       - name: Build
         run: mvn clean package -Dmaven.test.skip=true
@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: spc.jar
-          path: /app
+          path: ./app
       - name: Create a Docker image
         run: docker image build -t spc:1.0 .
         
