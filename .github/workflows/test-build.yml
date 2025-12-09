@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        
       - name: create environment
         uses: actions/setup-java@v4
         with:
