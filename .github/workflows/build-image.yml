@@ -43,11 +43,13 @@ jobs:
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
+
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           name: spc.jar
           path: ./app
-      - name: Create a Docker image
+
+      - name: Create Docker image
         run: docker image build -t spc:1.0 .
         
