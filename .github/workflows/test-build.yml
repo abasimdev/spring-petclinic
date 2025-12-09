@@ -26,5 +26,5 @@ jobs:
         run: mvn test
 
       - name: Create Package with Maven
-        run: mvn clean package
+        run: mvn clean package -Dmaven.test.skip=true # Skip to run/compile the tests again as we are already running them in above 'test' step
 
