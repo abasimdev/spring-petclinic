@@ -2,7 +2,7 @@
 # Created by AB
 # Info: This is for SPC Java based project. Steps -->> Test -> Build -> create Docker image -> push to ECR
 
-name: Build SPC project and push to ECR
+name: Build SPC project and push Docker Image to ECR
 
 on:
   push:
@@ -28,3 +28,8 @@ jobs:
 
       - name: Build
         run: mvn clean package -Dmaven.test.skip=true
+
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: /target/*.jar
