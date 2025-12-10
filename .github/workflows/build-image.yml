@@ -50,9 +50,6 @@ jobs:
           name: spc.jar
           path: ./app
 
-      - name: Verify Artifact files
-        run: ls -R .
-
       - name: Find Artifact path
         run: |
           echo "Searching for JAR files..."
@@ -60,4 +57,24 @@ jobs:
 
       - name: Create Docker image
         run: docker image build -t spc:1.0 .
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'ap-south-1'
+
+      - name: Login to ECR
+        run: |
+          aws ecr-public get-login-password --region ap-south-1 | docker login --username AWS --password-stdin public.ecr.aws/v2x6c7f6
+
+      - name: Tag Docker Image # To Push to AWS ECR
+        run: |
+          docker tag test/spc:latest public.ecr.aws/v2x6c7f6/test/spc:latest
+
+      - name: Push to ECR
+        run: |
+          docker push public.ecr.aws/v2x6c7f6/test/spc:latest
+        
         
