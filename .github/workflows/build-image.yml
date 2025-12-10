@@ -71,10 +71,10 @@ jobs:
 
       - name: Tag Docker Image # To Push to AWS ECR
         run: |
-          docker tag test/spc:latest public.ecr.aws/v2x6c7f6/test/spc:latest
+          docker tag test/pub/spc:1.0 public.ecr.aws/v2x6c7f6/test/pub:latest
 
       - name: Push to ECR
         run: |
-          docker push public.ecr.aws/v2x6c7f6/test/spc:latest
+          docker push public.ecr.aws/v2x6c7f6/test/pub/spc:1.0
         
         
