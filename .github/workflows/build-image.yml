@@ -56,7 +56,7 @@ jobs:
           find . -type f -name "*.jar" -print
 
       - name: Create Docker image
-        run: docker image build -t spc:1.0 .
+        run: docker image build -t test/pub .
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
