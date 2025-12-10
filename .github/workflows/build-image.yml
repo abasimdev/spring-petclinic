@@ -50,6 +50,9 @@ jobs:
           name: spc.jar
           path: ./app
 
+      - name: Verify Artifact files
+        run: ls -R .
+
       - name: Create Docker image
         run: docker image build -t spc:1.0 .
         
