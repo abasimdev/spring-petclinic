@@ -53,6 +53,9 @@ jobs:
       - name: Verify Artifact files
         run: ls -R .
 
+      - name: Find Artifact path
+        run: find . -name "spc.jar"
+
       - name: Create Docker image
         run: docker image build -t spc:1.0 .
         
