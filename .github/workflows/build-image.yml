@@ -1,6 +1,6 @@
 ---
 # Created by AB
-# Info: This is for SPC Java based project. Steps -->> Test -> Build -> create Docker image -> push to ECR
+# Info: This is for SPC Java based project. Steps -->> Test -> Build -> create Docker Image -> push to ECR
 
 name: Build SPC project and push Docker Image to ECR
 
@@ -9,7 +9,7 @@ on:
     branches: [ ab-prac ]
 
 jobs:
-  build:
+  build: # First Job
     runs-on: ubuntu-latest
 
     steps:
@@ -35,8 +35,8 @@ jobs:
           name: spc.jar
           path: '**/target/*.jar'
 
-  Docker:
-    needs: build
+  Docker: # Second Job
+    needs: build # Adding dependency for the above 'First Job'
 
     runs-on: ubuntu-latest
 
@@ -50,26 +50,26 @@ jobs:
           name: spc.jar
           path: ./app
 
-      - name: Find Artifact path
+      - name: Find Artifact path # Finding the exact path for the downloaded Artifact
         run: |
           echo "Searching for JAR files..."
           find . -type f -name "*.jar" -print
 
       - name: Create Docker image
-        run: docker image build -t test/pub .
+        run: docker image build -t test/pub . # Building the Docker Image as per the ECR Repo
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} # Secrets stored in the GitHub Repo Secrets
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: 'us-east-1'
+          aws-region: 'us-east-1' # AWS Region must be 'us-east-1' for public ECR Repos
 
       - name: Login to ECR
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/v2x6c7f6
 
-      - name: Tag Docker Image # To Push to AWS ECR
+      - name: Tag Docker Image # Tag the image to make it ECR comptible (Mandatory step for ECR)
         run: |
           docker tag test/pub:latest public.ecr.aws/v2x6c7f6/test/pub:latest
 
